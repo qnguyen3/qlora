@@ -465,12 +465,20 @@ ALPACA_PROMPT_DICT = {
     ),
 }
 
+VIETCUNA_LIMA_PROMPT = (
+    "Một cuộc trò chuyện giữa một người tò mò và một trợ lý trí tuệ nhân tạo. Trợ lý đưa ra câu trả lời hữu ích, chi tiết và lịch sự cho các câu hỏi của người dùng."
+    "### Human: {question}\n### Assistant:{answer}"
+    )
+
 def extract_alpaca_dataset(example):
     if example.get("input", "") != "":
         prompt_format = ALPACA_PROMPT_DICT["prompt_input"]
     else:
         prompt_format = ALPACA_PROMPT_DICT["prompt_no_input"]
     return {'input': prompt_format.format(**example)}
+
+def extract_lima_dataset(example):
+    return {'input': '', 'output': VIETCUNA_LIMA_PROMPT.format(**example)}
 
 def local_dataset(dataset_name):
     if dataset_name.endswith('.json'):
@@ -526,6 +534,8 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
             return load_dataset("akoksal/LongForm")
         elif dataset_name == 'oasst1':
             return load_dataset("timdettmers/openassistant-guanaco")
+        elif dataset_name == 'lima-vi':
+            return load_dataset("vilm/lima-vi")
         elif dataset_name == 'vicuna':
             raise NotImplementedError("Vicuna data was not released.")
         else:
@@ -563,6 +573,8 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                 'input': '',
                 'output': x['text'],
             })
+        elif dataset_format == 'lima-vi' or (dataset_format is None and args.dataset == 'lima-vi'):
+            dataset = dataset.map(extract_lima_dataset)
         elif dataset_format == 'input-output':
             # leave as is
             pass
