@@ -466,8 +466,8 @@ ALPACA_PROMPT_DICT = {
 }
 
 VIETCUNA_LIMA_PROMPT = (
-    "Một cuộc trò chuyện giữa một người tò mò và một trợ lý trí tuệ nhân tạo. Trợ lý đưa ra câu trả lời hữu ích, chi tiết và lịch sự cho các câu hỏi của người dùng."
-    "### Human: {question}\n### Assistant:{answer}"
+    "A chat between a curious human and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions."
+    "### Human:\n{question}\n\n### Assistant: "
     )
 
 def extract_alpaca_dataset(example):
@@ -478,7 +478,7 @@ def extract_alpaca_dataset(example):
     return {'input': prompt_format.format(**example)}
 
 def extract_lima_dataset(example):
-    return {'input': '', 'output': VIETCUNA_LIMA_PROMPT.format(**example)}
+    return {'input': VIETCUNA_LIMA_PROMPT.format(**example), 'output': example['answer']}
 
 def local_dataset(dataset_name):
     if dataset_name.endswith('.json'):
