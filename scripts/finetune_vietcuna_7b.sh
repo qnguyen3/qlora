@@ -4,7 +4,7 @@ python qlora.py \
     --logging_steps 10 \
     --save_strategy steps \
     --data_seed 42 \
-    --save_steps 200 \
+    --save_steps 250 \
     --save_total_limit 40 \
     --evaluation_strategy steps \
     --eval_dataset_size 100 \
@@ -28,12 +28,12 @@ python qlora.py \
     --lr_scheduler_type constant \
     --gradient_checkpointing \
     --dataset lima-vi \
-    --source_max_len 16 \
+    --source_max_len 256 \
     --target_max_len 2048 \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 16 \
-    --max_steps 1875 \
-    --eval_steps 187 \
+    --max_steps 2500 \
+    --eval_steps 100 \
     --learning_rate 0.0001 \
     --adam_beta2 0.999 \
     --max_grad_norm 0.3 \
