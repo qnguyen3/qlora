@@ -471,7 +471,9 @@ VIETCUNA_LIMA_PROMPT = (
     )
 
 def extract_alpaca_dataset(example):
-    if example.get("input", "") != "":
+    example = example.to_dict()
+    input_value = example.get("input")
+    if input_value is not None and input_value.lower() != 'nan':
         prompt_format = ALPACA_PROMPT_DICT["prompt_input"]
     else:
         prompt_format = ALPACA_PROMPT_DICT["prompt_no_input"]
