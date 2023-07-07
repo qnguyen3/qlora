@@ -4,14 +4,14 @@ python qlora.py \
     --logging_steps 10 \
     --save_strategy steps \
     --data_seed 42 \
-    --save_steps 250 \
+    --save_steps 500 \
     --save_total_limit 40 \
     --evaluation_strategy steps \
     --eval_dataset_size 100 \
     --max_eval_samples 100 \
     --per_device_eval_batch_size 1 \
-    --max_new_tokens 2048 \
-    --dataloader_num_workers 3 \
+    --max_new_tokens 1024 \
+    --dataloader_num_workers 4 \
     --group_by_length \
     --logging_strategy steps \
     --remove_unused_columns False \
@@ -29,12 +29,12 @@ python qlora.py \
     --gradient_checkpointing \
     --dataset lima-vi \
     --source_max_len 256 \
-    --target_max_len 2048 \
-    --per_device_train_batch_size 1 \
+    --target_max_len 1024 \
+    --per_device_train_batch_size 8 \
     --gradient_accumulation_steps 16 \
     --max_steps 2500 \
     --eval_steps 100 \
-    --learning_rate 0.0001 \
+    --learning_rate 0.0002 \
     --adam_beta2 0.999 \
     --max_grad_norm 0.3 \
     --lora_dropout 0.05 \
