@@ -1,5 +1,5 @@
 python qlora.py \
-    --model_name_or_path openlm-research/open_llama_7b \
+    --model_name_or_path bigscience/bloomz-7b1-mt \
     --output_dir ./output/vietcuna-7b \
     --logging_steps 10 \
     --save_strategy steps \
