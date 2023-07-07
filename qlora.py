@@ -537,7 +537,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
         elif dataset_name == 'oasst1':
             return load_dataset("timdettmers/openassistant-guanaco")
         elif dataset_name == 'lima-vi':
-            return load_dataset("vilm/lima-vi", data_files="translated_train_cleaned.csv")
+            return load_dataset("qnguyen3/instruction-vi")
         elif dataset_name == 'vicuna':
             raise NotImplementedError("Vicuna data was not released.")
         else:
