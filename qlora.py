@@ -477,6 +477,13 @@ def extract_alpaca_dataset(example):
         prompt_format = ALPACA_PROMPT_DICT["prompt_no_input"]
     return {'input': prompt_format.format(**example)}
 
+def extract_vi_alpaca_dataset(example):
+    if example.get("input", "") != "":
+        prompt_format = ALPACA_PROMPT_DICT["prompt_input"]
+    else:
+        prompt_format = ALPACA_PROMPT_DICT["prompt_no_input"]
+    return {'input': '', 'ouput': prompt_format.format(**example) + example['output']}
+
 def extract_lima_dataset(example):
     return {'input': VIETCUNA_LIMA_PROMPT.format(**example), 'output': example['answer']}
 
@@ -574,7 +581,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
                 'output': x['text'],
             })
         elif dataset_format == 'lima-vi' or (dataset_format is None and args.dataset == 'lima-vi'):
-            dataset = dataset.map(extract_lima_dataset)
+            dataset = dataset.map(extract_vi_alpaca_dataset)
         elif dataset_format == 'input-output':
             # leave as is
             pass
